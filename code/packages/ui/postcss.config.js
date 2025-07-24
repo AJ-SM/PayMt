@@ -1,1 +1,0 @@
-module.exports = require("@Anuj/configs/tailwind/postcss.config")
