@@ -26,6 +26,8 @@
     "@repo/tailwind-config": "^0.0.0",
     "@repo/ui": "^0.0.0",
     "@types/express": "^5.0.3",
-    "express": "^5.1.0"
+    "@types/jsonwebtoken": "^9.0.10",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2"
   }
 }
