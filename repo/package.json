@@ -22,7 +22,10 @@
     "packages/*"
   ],
   "dependencies": {
+    "@prisma/extension-accelerate": "^2.0.2",
     "@repo/tailwind-config": "^0.0.0",
-    "@repo/ui": "^0.0.0"
+    "@repo/ui": "^0.0.0",
+    "@types/express": "^5.0.3",
+    "express": "^5.1.0"
   }
 }
