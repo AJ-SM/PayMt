@@ -9,6 +9,9 @@ const JWT_SECERET = "anujsidam"
 const client = new PrismaClient;
 const app = express();
 app.use(cors());
+
+
+
 function CreateToken(id:number): string{
     const s_id = id.toString()
     const token = jwt.sign(s_id,JWT_SECERET)
@@ -61,7 +64,6 @@ app.post('/signup', async (req,res)=>{
 
 app.post('/signin',async (req,res)=>{
     const name = req.body.username;
-    const lastname:string = req.body.lastname; 
     const password:string = req.body.password; 
     const users = await client.user.findUnique({
         where :{ password },
@@ -93,9 +95,10 @@ app.post('/account',UserAuth,async (req,res)=>{
 app.post('/send', UserAuth, async (req, res) => {
   try {
       //@ts-ignore
-      const amount = parseFloat(req.query.amount); 
-    const uid:number = Number(req.query.id)
+      const amount = parseFloat(req.body.amount); 
+    const uid:number = Number(req.body.id)
     const token:any = req.headers['token'];
+    console.log(uid,amount)
     const dd = Number(jwt.verify(token,JWT_SECERET))
     const userId= dd;
     const user = await client.user.findUnique({
