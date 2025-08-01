@@ -1,15 +1,14 @@
 import express from "express";
 import jwt from "jsonwebtoken";
-
+const cors = require('cors'); // 1. Import the package
 import { Request,Response,NextFunction } from "express";
 import {PrismaClient} from "../../../packages/database/generated/prisma"
-
 
 
 const JWT_SECERET = "anujsidam"
 const client = new PrismaClient;
 const app = express();
-
+app.use(cors());
 function CreateToken(id:number): string{
     const s_id = id.toString()
     const token = jwt.sign(s_id,JWT_SECERET)
@@ -156,4 +155,4 @@ const updatedUsers = await client.$transaction(async (tx) => {
 
 
 
-app.listen(3003)
+app.listen(3008)
