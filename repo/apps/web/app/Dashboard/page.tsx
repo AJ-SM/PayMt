@@ -10,17 +10,26 @@ export default function dashboard(){
     const id = useRef<HTMLInputElement>(null);
     const amount = useRef<HTMLInputElement>(null);
     async function sendMoney(){
+        const token = localStorage.getItem('token');
         const uid = id.current?.value
         const money = amount.current?.value
         const data = {id:uid,amount:money};
-        console.log(data)
         const url ="http://localhost:3008/send";
-
+        
         try{
-            const response = await axios.post(url,data)
+            const response = await axios.post(url,data,{
+                headers:{
+                    'token':token
+                }
+            })
+            console.log(token)
             console.log(response.data)
-            alert("Money Send !!! ")
-            // setBalance(response.data.sender)
+            alert("Money Send !!! ")  
+            //@ts-ignore  
+            if(response.data.Sender !== undefined){
+                //@ts-ignore  
+                setBalance(response.data.Sender);
+            }
 
         }catch(err){
             console.log(err)

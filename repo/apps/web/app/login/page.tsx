@@ -31,7 +31,10 @@ export default function login(){
             const response = await axios.post(url, data);
             //@ts-ignore
             localStorage.setItem("token", response.data)
+            if(response){
+
             router.push('/Dashboard')
+            }
 
         } catch (err) {
             console.error("Signup failed:", err);

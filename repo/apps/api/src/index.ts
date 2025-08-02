@@ -19,6 +19,7 @@ function CreateToken(id:number): string{
 }
 
 async function  UserAuth(req:Request,res:Response,next:NextFunction){
+  console.log("here")
     const token:any = req.headers['token']
     let dd = Number(jwt.verify(token,JWT_SECERET))
     
@@ -28,6 +29,7 @@ async function  UserAuth(req:Request,res:Response,next:NextFunction){
             where:{id:dd},
         })
     if(data){
+      console.log("pass")
         
         next();
     }else{
@@ -98,6 +100,7 @@ app.post('/send', UserAuth, async (req, res) => {
       const amount = parseFloat(req.body.amount); 
     const uid:number = Number(req.body.id)
     const token:any = req.headers['token'];
+    console.log("This IS backend")
     console.log(uid,amount)
     const dd = Number(jwt.verify(token,JWT_SECERET))
     const userId= dd;
@@ -130,6 +133,9 @@ const updatedUsers = await client.$transaction(async (tx) => {
       },
     },
   });
+  if(!sender){
+    res.send('Error Sender Not Found ')
+  }
 
   const receiver = await tx.user.update({
     where: { id: uid },
@@ -139,6 +145,10 @@ const updatedUsers = await client.$transaction(async (tx) => {
       },
     },
   });
+    if(!receiver){
+    res.send('Error Reciver Not Found ')
+  }
+
 
   return { sender, receiver };
 });
